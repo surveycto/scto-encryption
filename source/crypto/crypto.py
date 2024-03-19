@@ -1,11 +1,11 @@
 from base64 import urlsafe_b64decode, b64encode
 from cryptography.fernet import Fernet
 
-def base64urlToStandard(string: bytes) -> bytes:
-  return string.replace(b'-', b'+').replace(b'_', b'/')
+def base64urlToStandard(data: bytes) -> bytes:
+  return data.replace(b'-', b'+').replace(b'_', b'/')
 
-def base64standardToUrl(string: bytes) -> bytes:
-  return string.replace(b'+', b'-').replace(b'/', b'_')
+def base64standardToUrl(data: bytes) -> bytes:
+  return data.replace(b'+', b'-').replace(b'/', b'_')
 
 class CryptoKey:
   def __init__(
@@ -13,13 +13,13 @@ class CryptoKey:
       whole_key: bytes,
       signing_key: bytes,
       encryption_key: bytes,
-      ) -> None:
+      ):
     self.whole_key = whole_key
     self.signing_key = signing_key
     self.encryption_key = encryption_key
   
   @staticmethod
-  def fromKey(key: bytes) -> "CryptoKey":
+  def fromKey(key: bytes) -> 'CryptoKey':
     decoded_key = urlsafe_b64decode(key)
     signing_key_raw = decoded_key[0:16]
     encryption_key_raw = decoded_key[16:]
@@ -36,7 +36,7 @@ class Encrypted:
   def __init__(
       self,
       token: bytes,
-      version: bytes,
+      version: int,
       timestamp: bytes,
       iv: bytes,
       ciphertext: bytes,
@@ -60,7 +60,7 @@ class Encrypted:
     return Encrypted(base64urlToStandard(token), version, timestamp, iv, ciphertext, hmac)
 
 class Encryption:
-  def __init__(self, key: CryptoKey) -> None:
+  def __init__(self, key: CryptoKey):
     self.key = key
     self._f = Fernet(key.whole_key)
   
@@ -73,6 +73,5 @@ class Encryption:
     return Encrypted.fromToken(token)
   
   def decrypt(self, encrypted: Encrypted) -> bytes:
-    print(base64urlToStandard(encrypted.token))
     return self._f.decrypt(encrypted.token)
 

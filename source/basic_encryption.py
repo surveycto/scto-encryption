@@ -1,8 +1,30 @@
-from crypto.crypto import CryptoKey, Encrypted, Encryption
+from crypto.crypto import Encryption
+
 
 def main():
+  # ENCRYPTION
   secret_message = input('Enter your secret message: ').encode('utf-8')
-  # secret_message = b'Hi there!'
+
+  print(f'Secret message:\n{secret_message}')
+
+  encryption1 = Encryption.initWithKey()
+  key = encryption1.key
+  print(f'Key:\n{key.whole_key}')
+
+  encrypted = encryption1.encrypt(secret_message)
+
+  print(f'Encryption token:\n{encrypted.token}')
+
+  # DECRYPTION
+  encryption2 = Encryption(key)
+  decrypted = encryption2.decrypt(encrypted)
+
+  print(type(encrypted.version))
+
+  print(f'Decrypted:\n{decrypted}')
+
+def main_detailed():
+  secret_message = input('Enter your secret message: ').encode('utf-8')
 
   print(f'Secret message:\n{secret_message}')
 
@@ -26,7 +48,6 @@ def main():
   decrypted = encryption2.decrypt(encrypted)
 
   print(f'Decrypted:\n{decrypted}')
-
 
 if __name__ == '__main__':
   main()

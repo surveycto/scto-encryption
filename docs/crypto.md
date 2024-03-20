@@ -2,7 +2,7 @@
 
 Use this Python module to encrypt data.
 
-If you want to encrypt a whole CSV file, we recommend using the [csv_encrypt](csv_encrypt.md) package as well.
+If you want to encrypt the data in a CSV file, we recommend using the [csv_encrypt](csv_encrypt.md) package as well.
 
 **Table of contents**
 
@@ -25,11 +25,11 @@ For basic encryption, you just need to import the "Encryption" class:
 
 ## Part 2: Encryption
 
-You then need a message to encrypt. It should be encoded using UTF-8. In this example, the message is entered using the `input()` function:
+You then need a message to encrypt. It should be encoded to a `bytes` variable using UTF-8. In this example, the message is entered using the `input()` function:
 
     secret_message = input('Enter your secret message: ').encode('utf-8')
 
-You then need to initialize the `Encryption` object. The easiest way to do this is using the `Encryption.initWithKey()` static method:
+You then need to create an [`Encryption`](#encryption) object. The easiest way to do this is using the `Encryption.initWithKey()` static method:
 
     encryption1 = Encryption.initWithKey()
 
@@ -37,13 +37,13 @@ This not only initializes an object you can use for encryption, but it also gene
 
     key = encryption1.key
 
-This "key" is a `CryptoKey` object that stores the encryption key, which will be used to both encrypt and decrypt your data.
+This "key" is a [`CryptoKey`](#cryptokey) object that stores the encryption key, which will be used to both encrypt and decrypt your data.
 
-To encrypt your data, use the Encryption.encrypt() method, which takes the UTF-8 message as an argument:
+To encrypt your data, use the `Encryption.encrypt()` method, which takes the encoded message as an argument:
 
     encrypted = encryption1.encrypt(secret_message)
 
-This will create an `Encrypted` object, which stores encryption information. It has various variables that are later used to decrypt your data, including the ciphertext (the encrypted data) and the IV (which was used to help encrypt your data). However, it does NOT include the encryption key.
+This will create an [`Encrypted`](#encrypted) object, which stores encryption information. It has various variables that are later used to decrypt your data, including the ciphertext (the encrypted data) and the IV (which was used to help encrypt your data). However, it does NOT include the encryption key.
 
 ### Part 3: Decryption
 
@@ -53,13 +53,30 @@ First, you need an `Encryption` object to decrypt your data. You could use the s
 
     encryption2 = Encryption(key)
 
-Notice how it takes the `CryptoKey` object from earlier as an argument, as opposed to creating an object with a brand new key.
+Notice how it takes the `CryptoKey` object from earlier as an argument, as opposed to creating an object with a brand new, different key.
 
 All that's left is to decrypt your data! You can do this using the `Encryption.decrypt()` method:
 
     decrypted = encryption2.decrypt(encrypted)
 
 This method takes the `Encrypted` object from earlier as an argument, and it returns the decrypted data.
+
+And that's all! Here it is all put together:
+
+```
+# IMPORT
+from crypto.crypto import Encryption
+
+# ENCRYPTION
+secret_message = input('Enter your secret message: ').encode('utf-8')
+encryption1 = Encryption.initWithKey()
+key = encryption1.key
+encrypted = encryption1.encrypt(secret_message)
+
+# DECRYPTION
+encryption2 = Encryption(key)
+decrypted = encryption2.decrypt(encrypted)
+```
 
 ## Classes
 
@@ -73,13 +90,13 @@ Objects with this class store information about the encryption key.
 
 This class has three variables:
 
- * **whole_key** (`bytes`): The whole, 256-bit encryption key encoded using Base64. This is a combination of the signing key and the encryption key. This is the key that is used by the `cryptopraphy` library. 
+ * **whole_key** (`bytes`): The whole, 256-bit encryption key encoded using Base64. This is a combination of the signing key and the encryption key. This is the key that is used by the [`cryptopraphy`](https://cryptography.io/) library. 
  * **signing_key** (`bytes`): The 128-bit signing key encoded using Base64.
  * **encryption_key** (`bytes`): The 128-bit encryption key encoded using Base64. This is the key that is actually used to encrypt your data.
 
  Importantly, the `cryptography` library requires the **whole_key** when encrypting data, but other services, such as the [decrypt field plug-in](https://github.com/surveycto/decrypt/blob/main/README.md), will only use the **encryption_key**.
  
- You can learn more about the `cryptography` key format in their [spec](https://github.com/fernet/spec/blob/master/Spec.md#key-format).
+ You can learn more about the `cryptography` key format in their [specification](https://github.com/fernet/spec/blob/master/Spec.md#key-format).
 
 #### Initiation
 
@@ -93,7 +110,7 @@ While this is available, we strongly recommend creating objects with this class 
 
 Takes a 256-bit, Base64-encoded key, and returns a `CryptoKey` object.
 
-**Important**: That 256-bit key will be divided up and turned into a 128-bit signing key and a 128-bit encryption key. So, with the argument you pass into this method, only the second-hald of that key will be used for the actual encryption process.
+**Important**: That 256-bit key will be divided up and turned into a 128-bit signing key and a 128-bit encryption key. So, with the argument you pass into this method, only the second-half of that key will be used to actually encrypt your data.
 
 **generate() -> `CryptoKey`**
 
@@ -105,14 +122,14 @@ This class stores the data regarding an encrypted piece of data.
 
 This class has six variables. The second through sixth variables are all directly derived from the **token**, as described in the `cryptography` [spec](https://github.com/fernet/spec/blob/master/Spec.md#token-format).
 
- * **token** (`bytes`): The full, Base64-encoded encryption token that is returned using the 
- * **version** (`int`): The token's format version used. This will always be 128.
+ * **token** (`bytes`): The full, Base64-encoded encryption token that the `cryptography` library generates.
+ * **version** (`int`): The version format used by the token. This will always be 128.
  * **timestamp** (`bytes`): Base64-encoded Unix epoch time the token was created.
  * **iv** (`bytes`): The Base64-encoded initialization vector (IV) used when encrypting the data.
- * **ciphertext** (`bytes`): The actual encrypted data, encoded using Base64/
+ * **ciphertext** (`bytes`): The actual encrypted data, encoded using Base64.
  * **hmac** (`bytes`): The [HMAC](https://github.com/fernet/spec/blob/master/Spec.md#hmac).
 
- When decrypting your data using a different package, you will typically only need the **iv** and **ciphertext**. This class makes it easy to retrieve those from the full token usually returned by the `cryptography` package.
+ When decrypting your data using a different package, you will typically only need the **iv** and **ciphertext**. This class makes it easy to retrieve those two from the full token returned by the `cryptography` package.
 
 **Important**: The `cryptopgraphy` library typically uses Base64URL encoding, but these variables all use Base64 encoding, which is more common. The only difference is that Base64 uses `+` instead of `-` and `/` instead of `_`.
 
@@ -120,7 +137,7 @@ This class has six variables. The second through sixth variables are all directl
 
 **Encrypted(token: `byte`, version: `int`, timestamp: `bytes`, iv: `bytes`, ciphertext: `bytes`, hmac: `bytes`) -> Encrypted**
 
-While this is available, we strongly recommend creating objects with this class using the [static method below](#static-method), so it properly retrieve all of the needed data from the **token**.
+While this is available, we strongly recommend creating objects with this class using the [static method below](#static-method), so it properly retrieves all of the needed data from the **token**.
 
 #### Static method
 
@@ -128,7 +145,7 @@ While this is available, we strongly recommend creating objects with this class 
 
 Takes an encryption token generated by the `cryptography` library, and returns an `Encrypted` object where it is much easier to get the data you need to decrypt using a different package.
 
-Note: The `Encryption` class will generate `Encrypted` objects for you, so it is unlikely you will actually need to directly use this method.
+Note: The [`Encryption`](#encryption) class will generate `Encrypted` objects for you, so it is unlikely you will actually need to directly use this method.
 
 ### Encryption
 
@@ -142,7 +159,7 @@ This class is used to encrypt and decrypt your data.
 
 **Encryption(key: `CryptoKey`)**
 
-This class takes a `CryptoKey` object as an argument. That key will be used to encrypt and decrypt your data.
+This class takes a [`CryptoKey`](#cryptokey) object as an argument. That key will be used to encrypt and decrypt your data.
 
 #### Static method
 

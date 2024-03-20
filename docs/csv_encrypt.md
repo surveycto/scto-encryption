@@ -11,7 +11,7 @@ Use this module to encrypt the data in a CSV file using AES.
 ## Features
 
 * Encrypt each individual piece of data in each column of data.
-* Exlclude from encryption data in specided columns.
+* Exclude specided columns from encryption data, so those columns remain unencrypted.
 * Include both the ciphertext and IV in the CSV file.
 * Create a new CSV file at the specified location with the encrypted data. The original CSV file will remain unencrypted.
 
@@ -34,7 +34,7 @@ Next, generate a `CryptoKey` object, and store it in a variable. It is usually e
 
 However, if you already have your own key, you can also use the `CryptoKey.fromKey()` static method.
 
-**Important**: If you use the `CryptoKey.fromKey()` static method, keep in mind that the key used for the argument needs to be a key that combines BOTH the signing key and the encryption key. Only the encryption key is used for actual encryption and decryption.
+**Important**: If you use the `CryptoKey.fromKey()` static method, keep in mind that the key used for the argument needs to be a key that combines BOTH the signing key and the encryption key. However, only the encryption key is used for actual encryption and decryption, and you will need that later if you decrypt your data using a different library.
 
 ### Part 3: Generate CSV file
 
@@ -45,6 +45,8 @@ Run the `csv_encrypt.encryptCsv()` function, providing it with the needed [param
 From the `CryptoKey` object created earlier. retrieve the **encryption_key** variable value:
 
     encryption_key = key.encryption_key.decode('utf-8')
+
+(In this example, the encryption key is being saved as a `string`.)
 
 Put that value somewhere safe. You can write it to a `.pem` file, print it to the console and copy it, etc. Just make sure you keep that encryption key safe, since it is required to decrypt the data later.
 
@@ -70,8 +72,8 @@ This module has one function, `encryptCsv()`.
 
 When you run this function, it will generate a new CSV file at the path specified in **new_path**. Other than the data in the columns specified in **exclude_headers**, the data in each cell will be encrypted.
 
-Each cell will be a combination of the ciphertext and initialization vector (IV), separated by a pipe `|`, or whatever character you specify for the **separator**. Here is an example:
+Each encrypted cell will be a combination of the ciphertext and initialization vector (IV), separated by a pipe `|`, or whatever character you specified for the **separator**. Here is an example:
 
-    UsQ1Wj93lyHvjxa9cZhrhg==|J8vOrtQPqjrdmYHdvGnfwg==
+    f5l2KcvRKodlSf6n06tqgQ==|XSFHs2RWb/w2bo5VC2+ipg==
 
-Here, the ciphertext is `UsQ1Wj93lyHvjxa9cZhrhg==`, and the IV is `J8vOrtQPqjrdmYHdvGnfwg==`. You will need both of these with the encryption key to decrypt your data later.
+Here, the ciphertext is `f5l2KcvRKodlSf6n06tqgQ==`, and the IV is `XSFHs2RWb/w2bo5VC2+ipg==`. You will need both of these with the encryption key to decrypt your data later.

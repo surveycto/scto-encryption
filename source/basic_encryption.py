@@ -19,8 +19,6 @@ def main():
   encryption2 = Encryption(key)
   decrypted = encryption2.decrypt(encrypted)
 
-  print(type(encrypted.version))
-
   print(f'Decrypted:\n{decrypted}')
 
 def main_detailed():

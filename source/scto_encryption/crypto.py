@@ -46,7 +46,7 @@ class CryptoKey:
     return CryptoKey(whole_key, b64encode(decoded_signing_key), encryption_key)
 
   @staticmethod
-  def generate() -> "CryptoKey":
+  def generate() -> 'CryptoKey':
     key = Fernet.generate_key()
     return CryptoKey.fromKey(key)
 
@@ -75,7 +75,7 @@ class Encrypted:
     return h.finalize()
 
   @staticmethod
-  def fromToken(token: bytes) -> "Encrypted":
+  def fromToken(token: bytes) -> 'Encrypted':
     decoded_token = urlsafe_b64decode(token)
     version = decoded_token[0]
     timestamp = b64encode(decoded_token[1:9])
@@ -111,7 +111,7 @@ class Encryption:
     self._f = Fernet(key.whole_key)
   
   @staticmethod
-  def initWithKey() -> "Encryption":
+  def initWithKey() -> 'Encryption':
     return Encryption(CryptoKey.generate())
 
   def encrypt(self, data: bytes) -> Encrypted:

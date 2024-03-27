@@ -21,7 +21,7 @@ If you want to encrypt the data in a CSV file, we recommend using the [csv_encry
 
 For basic encryption, you just need to import the "Encryption" class:
 
-    from crypto.crypto import Encryption
+    from scto_encryption.crypto import Encryption
 
 ## Part 2: Encryption
 

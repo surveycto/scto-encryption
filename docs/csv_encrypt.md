@@ -23,8 +23,8 @@ Use this module to encrypt the data in a CSV file using AES.
 
 First, import the relevant modules:
 
-    from crypto.crypto import CryptoKey
-    from crypto import csv_encrypt
+    from scto_encryption.crypto import CryptoKey
+    from scto_encryption import csv_encrypt
 
 ### Part 2: Generate key
 

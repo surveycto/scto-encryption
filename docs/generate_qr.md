@@ -4,7 +4,7 @@
 
 It will be much easier for your enumerators to scan a QR code with the encryption key instead of entering it manually every time (and possibly more secure). You can easily turn your encryption key into a QR code using the [`qrcode`](https://pypi.org/project/qrcode/) library.
 
-Note: The `qrcode` package is a third-party library, and it is not maintained by SurveyCTO/Dobility.
+Note: The `qrcode` library is a third-party library, and it is not maintained by SurveyCTO/Dobility.
 
 ## Generate QR code
 

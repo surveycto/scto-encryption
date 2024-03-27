@@ -26,6 +26,7 @@ Check out these resources to learn how to use the package:
 
 * [**Module: crypto**](docs/crypto.md): Classes used for easy encryption and decryption, including tools to later decrypt your data using other packages on other platforms.
 * [**Module: csv_encrypt**](docs/csv_encrypt.md): Includes function to encrypt the data in a CSV file that can be used for pre-loading in SurveyCTO.
+* [**How to generate a QR code with your encryption key**](docs/generate_qr.md): Generate a QR code to make it much easier to distribute your encryption key.
 * [**Use with SurveyCTO**](docs/use_with_surveycto.md): Tips on using this package to assist you with SurveyCTO.
  
 ## Further information

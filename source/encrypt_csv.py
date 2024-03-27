@@ -1,5 +1,5 @@
-from crypto.crypto import CryptoKey
-from crypto import csv_encrypt
+from scto_encryption.crypto import CryptoKey
+from scto_encryption import csv_encrypt
 
 def main():
   # key = CryptoKey.generate()

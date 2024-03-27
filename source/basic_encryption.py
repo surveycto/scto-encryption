@@ -1,4 +1,4 @@
-from crypto.crypto import Encryption
+from scto_encryption.crypto import Encryption
 
 
 def main():

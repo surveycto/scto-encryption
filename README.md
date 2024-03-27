@@ -12,7 +12,13 @@ Use this Python package to encrypt your data for use with the [decrypt field plu
 
 ## Installation
 
-(To be added...)
+To install the Python package, run this command:
+
+```
+pip install git+https://github.com/surveycto/scto-encryption.git
+```
+
+**Important**: You may have to replace `pip` with `pip3`, depending on how Python is installed on your system.
 
 ## Documentation
 

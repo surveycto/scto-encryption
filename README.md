@@ -2,6 +2,8 @@
 
 Use this Python package to encrypt your data for use with the [decrypt field plug-in](https://github.com/surveycto/decrypt/blob/main/README.md). It can even encrypt data in a CSV file for you.
 
+This package can also decrypt data, such as data encrypted using the [encrypt field plug-in](https://github.com/surveycto/encrypt/blob/main/README.md)
+
 *New to SurveyCTO? Check out [this video](https://www.surveycto.com/videos/surveycto-overview/)!*
 
 ## Features

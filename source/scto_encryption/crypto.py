@@ -1,6 +1,6 @@
 from base64 import urlsafe_b64decode, b64encode, b64decode
 from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.hmac import HMAC
 from time import time
 from os import urandom
@@ -39,10 +39,8 @@ class CryptoKey:
   @staticmethod
   def fromKey(key: bytes) -> 'CryptoKey':
     decoded_key = urlsafe_b64decode(key)
-    decoded_signing_key = decoded_key[0:16]
-    decoded_encryption_key = decoded_key[16:]
-    signing_key = b64encode(decoded_signing_key)
-    encryption_key = b64encode(decoded_encryption_key)
+    signing_key = b64encode(decoded_key[0:16])
+    encryption_key = b64encode(decoded_key[16:])
     return CryptoKey(base64urlToStandard(key), signing_key, encryption_key)
   
   @staticmethod
@@ -76,7 +74,7 @@ class Encrypted:
   # Should be decoded byte data, NOT Base64.
   @staticmethod
   def _genHmac(data: bytes, signing_key: bytes) -> bytes:
-    h = HMAC(signing_key, hashes.SHA256())
+    h = HMAC(signing_key, SHA256())
     h.update(data)
     return h.finalize()
 
@@ -95,19 +93,14 @@ class Encrypted:
     ciphertext: Union[bytes, str],
     iv: Union[bytes, str],
     key: CryptoKey) -> 'Encrypted':
-    iv = strToBytes(iv)
     ciphertext = strToBytes(ciphertext)
-
+    iv = strToBytes(iv)
     signing_key = key.signing_key
-    decoded_signing_key = b64decode(signing_key)
-    decoded_ct = b64decode(ciphertext)
-    decoded_iv = b64decode(iv)
 
     timestamp = int(time()).to_bytes(8, 'big')
-    hmac_data = b'\x80' + timestamp + decoded_iv + decoded_ct
-    hmac = Encrypted._genHmac(hmac_data, decoded_signing_key)
-    decoded_constructed_token = hmac_data + hmac
-    constructed_token = b64encode(decoded_constructed_token)
+    hmac_data = b'\x80' + timestamp + b64decode(iv) + b64decode(ciphertext)
+    hmac = Encrypted._genHmac(hmac_data, b64decode(signing_key))
+    constructed_token = b64encode(hmac_data + hmac)
     return Encrypted.fromToken(constructed_token)
 
 
@@ -126,4 +119,3 @@ class Encryption:
   
   def decrypt(self, encrypted: Encrypted) -> bytes:
     return self._f.decrypt(encrypted.token)
-

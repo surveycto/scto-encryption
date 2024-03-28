@@ -1,4 +1,4 @@
-from scto_encryption.crypto import Encryption
+from scto_encryption.crypto import Encryption, bytesToStr
 
 
 def main():
@@ -19,7 +19,7 @@ def main():
   encryption2 = Encryption(key)
   decrypted = encryption2.decrypt(encrypted)
 
-  print(f'Decrypted:\n{decrypted}')
+  print(f'Decrypted:\n{bytesToStr(decrypted)}')
 
 def main_detailed():
   secret_message = input('Enter your secret message: ').encode('utf-8')
@@ -45,7 +45,7 @@ def main_detailed():
   encryption2 = Encryption(key)
   decrypted = encryption2.decrypt(encrypted)
 
-  print(f'Decrypted:\n{decrypted}')
+  print(f'Decrypted:\n{bytesToStr(decrypted)}')
 
 if __name__ == '__main__':
   main()

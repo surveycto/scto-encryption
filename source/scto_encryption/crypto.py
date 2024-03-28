@@ -86,8 +86,8 @@ class Encrypted:
   
   @staticmethod
   def tokenless(
-    iv: Union[bytes, str],
     ciphertext: Union[bytes, str],
+    iv: Union[bytes, str],
     key: CryptoKey) -> 'Encrypted':
     iv = strToBytes(iv)
     ciphertext = strToBytes(ciphertext)

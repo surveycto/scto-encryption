@@ -50,9 +50,9 @@ From the `CryptoKey` object created earlier. retrieve the **encryption_key** var
 
 Put that value somewhere safe. You can write it to a `.pem` file, print it to the console and copy it, etc. Just make sure you keep that encryption key safe, since it is required to decrypt the data later.
 
-## Function
+## Functions
 
-This module has one function, `encryptCsv()`.
+This module has two functions.
 
 **encryptCsv(crypto_key: `CryptoKey`, original_path: `str`, new_path: `str`, exclude_headers: `List[str]`, separator: `Union[str, bytes]` = `b'|'`)**
 
@@ -77,3 +77,15 @@ Each encrypted cell will be a combination of the ciphertext and initialization v
     f5l2KcvRKodlSf6n06tqgQ==|XSFHs2RWb/w2bo5VC2+ipg==
 
 Here, the ciphertext is `f5l2KcvRKodlSf6n06tqgQ==`, and the IV is `XSFHs2RWb/w2bo5VC2+ipg==`. You will need both of these with the encryption key to decrypt your data later.
+
+**decryptCsv(crypto_key: `CryptoKey`, original_path: `str`, new_path: `str`, exclude_headers: `List[str]`, separator: `Union[str, bytes]` = `b'|'`)**
+
+*This is demonstrated in the [**decrypt_csv.py**](../source/decrypt_csv.py) file.*
+
+### Parameters
+
+* **crypto_key** (`CryptoKey`): The [`Cryptokey`](crypto.md#cryptokey) object that will be used to decrypt the data.
+* **original_path** (`str`): Full filepath to the CSV file that will be decrypted.
+* **new_path** (`str`): Full filepath to the CSV file that will be **created** and contain the decrypted data.
+* **exclude_headers** (`List[str]`): Headers of the columns that were not encrypted, and do not need to be decrypted.
+* **separator** (`Union[str, bytes]`): Character used to separate the ciphertext and IV. You can provide a string, which the function will convert to a `bytes` variable for you. Default: `b'|'`

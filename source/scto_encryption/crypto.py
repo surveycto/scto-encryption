@@ -19,6 +19,12 @@ def strToBytes(data: Union[str, bytes]) -> bytes:
   else:
     return data
 
+def bytesToStr(data: Union[str, bytes]) -> str:
+  if type(data) == bytes:
+    return data.decode('utf-8')
+  else:
+    return data
+
 class CryptoKey:
   def __init__(
       self,

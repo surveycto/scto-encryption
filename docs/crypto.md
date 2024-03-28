@@ -18,13 +18,15 @@ If you want to encrypt the data in a CSV file, we recommend using the [csv_encry
 
 *This is demonstrated in the [**basic_encryption.py**](../source/basic_encryption.py) file.*
 
-## Part 1: Import class
+Here, we demonstrate how to encrypt data using this library, and then decrypt it to confirm the encryption was successful.
+
+### Part 1: Import class
 
 For basic encryption, you just need to import the "Encryption" class:
 
     from scto_encryption.crypto import Encryption
 
-## Part 2: Encryption
+### Part 2: Encryption
 
 You then need a message to encrypt. It should be encoded to a `bytes` variable using UTF-8. In this example, the message is entered using the `input()` function:
 
@@ -79,23 +81,23 @@ encryption2 = Encryption(key)
 decrypted = encryption2.decrypt(encrypted)
 ```
 
-## Quick start: Encryption
-
-You can use this module to not only encrypt your plaintext data, but decrypt data encrypted using a different library
+## Quick start: Decryption
 
 *This is demonstrated in the [**basic_decryption.py**](../source/basic_decryption.py) file.*
 
-## Step 1: Import classes
+You can use this module to not only encrypt your plaintext data, but decrypt ciphertext data encrypted using a different library.
 
-For basic encryption, you need all three classes:
+### Step 1: Import classes
+
+For decryption, you need all three classes:
 
     from scto_encryption.crypto import CryptoKey, Encrypted, Encryption
 
-## Step 2: Retrieve data
+### Step 2: Retrieve data
 
-Retrieve your IV, ciphertext, and encryption key, and store them in variables. They can be either `str` or `bytes` variables.
+Retrieve your ciphertext, IV, and encryption key, and store them in variables. They can be either `str` or `bytes` variables, but make sure they are all Base64-encoded.
 
-## Step 3: Generate key
+### Step 3: Generate key
 
 This module requires the key to be in a specific format. Use the encryption key to generate a `CryptoKey` object:
 
@@ -103,25 +105,25 @@ This module requires the key to be in a specific format. Use the encryption key 
 
 ## Step 4: Collect encryption data
 
-Use the IV, ciphertext, and `CryptoKey` key to generate an `Encrypted` object:
+Use the ciphertext, IV, and `CryptoKey` key to generate an `Encrypted` object:
 
     encrypted = Encrypted.tokenless(iv, ciphertext, key)
 
 This will store information that will be used for decryption.
 
-## Step 5: Generate encryption tool
+### Step 5: Generate encryption tool
 
 Use the `CryptoKey` key to generate an `Encryption` object, which is a tool that will be used to decrypt your data:
 
     encryption = Encryption(key)
 
-## Step 6: Decrypt data
+### Step 6: Decrypt data
 
 Use the `Encryption` and `Encrypted` objects to decrypt your data:
 
     decrypted = encryption.decrypt(encrypted)
 
-And "decrypted" will store your decrypted data!
+And "decrypted" will store your decrypted, plaintext data!
 
 ## Classes
 

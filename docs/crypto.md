@@ -6,14 +6,15 @@ If you want to encrypt the data in a CSV file, we recommend using the [csv_encry
 
 **Table of contents**
 
-1. [Quick start](#quick-start)
+1. [Quick start: Encryption](#quick-start-encryption)
+1. [Quick start: Decryption](#quick-start-decryption)
 1. [Classes](#classes)
   1. [CryptoKey](#cryptokey): Stores information about the key used to encrypt and decrypt data.
   1. [Encrypted](#encrypted): Stores information about encrypted data, including the ciphertext and IV.
   1. [Encryption](#encryption): Tool used to encrypt and decrypt data.
 1. [Functions](#functions)
 
-## Quick start
+## Quick start: Encryption
 
 *This is demonstrated in the [**basic_encryption.py**](../source/basic_encryption.py) file.*
 
@@ -77,6 +78,50 @@ encrypted = encryption1.encrypt(secret_message)
 encryption2 = Encryption(key)
 decrypted = encryption2.decrypt(encrypted)
 ```
+
+## Quick start: Encryption
+
+You can use this module to not only encrypt your plaintext data, but decrypt data encrypted using a different library
+
+*This is demonstrated in the [**basic_decryption.py**](../source/basic_decryption.py) file.*
+
+## Step 1: Import classes
+
+For basic encryption, you need all three classes:
+
+    from scto_encryption.crypto import CryptoKey, Encrypted, Encryption
+
+## Step 2: Retrieve data
+
+Retrieve your IV, ciphertext, and encryption key, and store them in variables. They can be either `str` or `bytes` variables.
+
+## Step 3: Generate key
+
+This module requires the key to be in a specific format. Use the encryption key to generate a `CryptoKey` object:
+
+    key = CryptoKey.fromEncryptionKey(encryption_key)
+
+## Step 4: Collect encryption data
+
+Use the IV, ciphertext, and `CryptoKey` key to generate an `Encrypted` object:
+
+    encrypted = Encrypted.tokenless(iv, ciphertext, key)
+
+This will store information that will be used for decryption.
+
+## Step 5: Generate encryption tool
+
+Use the `CryptoKey` key to generate an `Encryption` object, which is a tool that will be used to decrypt your data:
+
+    encryption = Encryption(key)
+
+## Step 6: Decrypt data
+
+Use the `Encryption` and `Encrypted` objects to decrypt your data:
+
+    decrypted = encryption.decrypt(encrypted)
+
+And "decrypted" will store your decrypted data!
 
 ## Classes
 
@@ -202,3 +247,11 @@ Takes Base64URL-encoded data, and converts it to Base64-encoded data.
 Takes Base64-encoded data, and converts it to Base64URL-encoded data.
 
 **Note**: The only difference between Base64 and Base64URL is that Base64 uses `+` instead of `-` and `/` instead of `_`.
+
+**strToBytes(data: `Union[str, bytes]`) -> `bytes`**
+
+If the argument is `str` data, it will encode it as UTF-8 `bytes` data and return it. If the argument is `bytes` data, it will return that same data, unchanged.
+
+**bytesToStr(data: `Union[str, bytes]`) -> `str`**
+
+If the argument is `bytes` data, it will decode it to `str` data using UTF-8 and return it. If the argument is `str` data, it will return that same data, unchanged.

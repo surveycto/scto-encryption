@@ -1,5 +1,5 @@
 from scto_encryption.crypto import CryptoKey
-from scto_encryption.csv_encrypt import encryptCsv
+from scto_encryption.csv_encrypt import encryptCsvCryptoKey
 
 from os.path import dirname, join
 
@@ -10,7 +10,7 @@ def main():
   data_path = join(repo_path, 'sample_data')
   original_path = join(data_path, 'data.csv')
   new_path = join(data_path, 'encrypted_data.csv')
-  encryptCsv(key, original_path, new_path, exclude_headers = ['id_key'])
+  encryptCsvCryptoKey(key, original_path, new_path, exclude_headers = ['id_key'])
   encryption_key = key.encryption_key.decode('utf-8')
   print(f'Your decryption key:\n{encryption_key}')
   print(key.whole_key)

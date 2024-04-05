@@ -1,3 +1,5 @@
+from ._helpers import loadStringFromFile, verifyEncryptionKeyString
+
 from base64 import urlsafe_b64decode, b64encode, b64decode
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.hashes import SHA256
@@ -37,14 +39,16 @@ class CryptoKey:
     self.encryption_key = encryption_key
   
   @staticmethod
-  def fromKey(key: bytes) -> 'CryptoKey':
+  def fromKey(key: Union[bytes, str]) -> 'CryptoKey':
+    key = strToBytes(key)
     decoded_key = urlsafe_b64decode(key)
     signing_key = b64encode(decoded_key[0:16])
     encryption_key = b64encode(decoded_key[16:])
     return CryptoKey(base64urlToStandard(key), signing_key, encryption_key)
   
   @staticmethod
-  def fromEncryptionKey(encryption_key: bytes) -> 'CryptoKey':
+  def fromEncryptionKey(encryption_key: Union[bytes, str]) -> 'CryptoKey':
+    encryption_key = strToBytes(encryption_key)
     decoded_signing_key = urandom(16)
     whole_key = b64encode(decoded_signing_key + b64decode(encryption_key))
     return CryptoKey(whole_key, b64encode(decoded_signing_key), encryption_key)
@@ -53,6 +57,14 @@ class CryptoKey:
   def generate() -> 'CryptoKey':
     key = Fernet.generate_key()
     return CryptoKey.fromKey(key)
+
+  @staticmethod
+
+  @staticmethod
+  def fromFile(path: str) -> 'CryptoKey':
+    encryption_key = loadStringFromFile(path)
+    verifyEncryptionKeyString(encryption_key)
+    return CryptoKey.fromEncryptionKey(encryption_key)
 
 class Encrypted:
   def __init__(

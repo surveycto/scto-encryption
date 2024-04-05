@@ -1,5 +1,5 @@
 from scto_encryption.crypto import CryptoKey
-from scto_encryption.csv_encrypt import decryptCsv
+from scto_encryption.csv_encrypt import decryptCsvCryptoKey
 
 from os.path import dirname, join
 
@@ -10,7 +10,7 @@ def main():
   data_path = join(repo_path, 'sample_data')
   encrypted_path = join(data_path, 'encrypted_data.csv')
   decrypted_path = join(data_path, 'data_new.csv')
-  decryptCsv(key, encrypted_path, decrypted_path)
+  decryptCsvCryptoKey(key, encrypted_path, decrypted_path)
 
 if __name__ == '__main__':
   main()

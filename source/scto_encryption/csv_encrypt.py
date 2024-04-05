@@ -2,7 +2,7 @@ from csv import DictReader, DictWriter
 from .crypto import CryptoKey, Encrypted, Encryption
 from typing import List, Dict, Union
 
-def encryptCsv(
+def encryptCsvCryptoKey(
     crypto_key: CryptoKey,
     original_path: str,
     new_path: str,
@@ -30,7 +30,8 @@ def encryptCsv(
     writer.writeheader()
     writer.writerows(new_data)
 
-def decryptCsv(
+
+def decryptCsvCryptoKey(
     crypto_key: CryptoKey,
     original_path: str,
     new_path: str,

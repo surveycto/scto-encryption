@@ -5,14 +5,14 @@ from typing import List, Union
 from os import urandom
 from base64 import b64encode
 
-def generateKey(path: str):
+def generateKey(path: str) -> str:
   decoded_encryption_key = urandom(16)
   encryption_key = b64encode(decoded_encryption_key).decode('utf-8')
   with open(path, 'w', newline='') as f:
     f.write(encryption_key)
   return encryption_key
 
-def loadKeyFromFile(path: str):
+def loadKeyFromFile(path: str) -> str:
   encryption_key = loadStringFromFile(path)
   verifyEncryptionKeyString(encryption_key)
   return encryption_key

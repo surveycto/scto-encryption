@@ -7,7 +7,7 @@ def main():
   data_path = join(repo_path, 'sample_data')
   key_path = join(data_path, 'sample_key.pem')
   encrypted_path = join(data_path, 'encrypted_data.csv')
-  decrypted_path = join(data_path, 'data_new.csv')
+  decrypted_path = join(data_path, 'data_decrypted.csv')
   decryptCsv(key_path, encrypted_path, decrypted_path)
 
 if __name__ == '__main__':

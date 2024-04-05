@@ -4,8 +4,8 @@ from typing import List, Dict, Union
 
 def encryptCsvCryptoKey(
     crypto_key: CryptoKey,
-    original_path: str,
-    new_path: str,
+    source_path: str,
+    encrypted_path: str,
     exclude_headers: List[str] = list(),
     separator: Union[str, bytes] = b'|'
     ):
@@ -13,7 +13,7 @@ def encryptCsvCryptoKey(
     separator = separator.encode('utf-8')
   encryptor = Encryption(crypto_key)
   
-  with open(original_path, newline='', encoding='utf-8-sig') as r:
+  with open(source_path, newline='', encoding='utf-8-sig') as r:
     reader = DictReader(r)
     headers = reader.fieldnames
     
@@ -25,7 +25,7 @@ def encryptCsvCryptoKey(
           enc: Encrypted = encryptor.encrypt(data.encode('utf-8'))
           row[h] = (enc.ciphertext + separator + enc.iv).decode('utf-8')
       new_data.append(row)
-  with open(new_path, 'w', newline='', encoding='utf-8-sig') as w:
+  with open(encrypted_path, 'w', newline='', encoding='utf-8-sig') as w:
     writer = DictWriter(w, fieldnames=headers)
     writer.writeheader()
     writer.writerows(new_data)
@@ -33,8 +33,8 @@ def encryptCsvCryptoKey(
 
 def decryptCsvCryptoKey(
     crypto_key: CryptoKey,
-    original_path: str,
-    new_path: str,
+    source_path: str,
+    decrypted_path: str,
     exclude_headers: List[str] = list(),
     separator: Union[str, bytes] = b'|'
     ):
@@ -42,7 +42,7 @@ def decryptCsvCryptoKey(
     separator = separator.encode('utf-8')
   encryptor = Encryption(crypto_key)
   
-  with open(original_path, newline='', encoding='utf-8-sig') as r:
+  with open(source_path, newline='', encoding='utf-8-sig') as r:
     reader = DictReader(r)
     headers = reader.fieldnames
     
@@ -59,7 +59,7 @@ def decryptCsvCryptoKey(
           decrypted = encryptor.decrypt(enc)
           row[h] = decrypted.decode('utf-8')
       new_data.append(row)
-  with open(new_path, 'w', newline='', encoding='utf-8-sig') as w:
+  with open(decrypted_path, 'w', newline='', encoding='utf-8-sig') as w:
     writer = DictWriter(w, fieldnames=headers)
     writer.writeheader()
     writer.writerows(new_data)

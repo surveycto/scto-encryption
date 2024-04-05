@@ -59,8 +59,6 @@ class CryptoKey:
     return CryptoKey.fromKey(key)
 
   @staticmethod
-
-  @staticmethod
   def fromFile(path: str) -> 'CryptoKey':
     encryption_key = loadStringFromFile(path)
     verifyEncryptionKeyString(encryption_key)

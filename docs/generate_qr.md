@@ -10,16 +10,14 @@ Note: The `qrcode` library is a third-party library, and it is not maintained by
 
 ### Step 1: Generate encryption key
 
-First, you will need your encryption key. In the scto_encryption package, you can generate one using the [`Encryption`](crypto.md#encryption) class:
+First, you will need an encryption key. You can quickly generate an encryption key using the `generateKey()` function in the [functions](functions.md) module to generate a key and save it to a file:
 
 ```
-encryption1 = Encryption.initWithKey()
-key = encryption1.key
+from scto_encryption.functions import generateKey
+  encryption_key = generateKey(key_path)
 ```
 
-Here, "key" is a [`CryptoKey`](crypto.md#cryptokey) object. You will need the encryption key from that. The `CryptoKey` saves data as a `bytes` values, so you will then need to convert it to a `str` object:
-
-    string_enc_key = key.encryption_key.decode('utf-8')
+If you already have an encryption key you would like to use, you can use the `loadKey()` function instead.
 
 ### Step 2: Generate QR code
 
@@ -29,7 +27,7 @@ Use the `qrcode` library to generate a QR code from the encryption key. Import t
 
 Then, generate the QR code:
 
-    img = qrcode.make(string_enc_key)
+    img = qrcode.make(encryption_key)
 
 Here, the variable "img" stores an object with the QR code image. You can then save that image to your preferred destination:
 

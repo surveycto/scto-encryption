@@ -26,6 +26,7 @@ pip install git+https://github.com/surveycto/scto-encryption.git
 
 Check out these resources to learn how to use the package:
 
+* [**Quick start guide**](docs/quick_start.md): For users the most novice knowledge of Python.
 * [**Module: functions**](docs/functions.md): Basic functions for Python novices, including generate encryption keys, encrypt CSV files, and decrypt CSV files.
 * [**Module: crypto**](docs/crypto.md): Classes used for easy encryption and decryption, including tools to later decrypt your data using other packages on other platforms.
 * [**Module: csv_encrypt**](docs/csv_encrypt.md): Functions to encrypt data in a CSV file that can be used for pre-loading in SurveyCTO.

@@ -26,7 +26,7 @@ If the key is not a Base64-encoded, 128-bit key, there will be an error. As long
 
 Note: You will probably not need to use this function, since the CSV functions mentioned below will load the key for you. However, this function is available to you if you need it.
 
-**encryptCsv(key_path: `str`, original_path: `str`, new_path: `str`, exclude_headers: `List[str]`, separator: `Union[str, bytes]` = `b'|'`)**
+**encryptCsv(key_path: `str`, source_path: `str`, encrypted_path: `str`, exclude_headers: `List[str]`, separator: `Union[str, bytes]` = `b'|'`)**
 
 Use this function to encrypt the data in the specified CSV file, and save the encrypted file in the specified location.
 
@@ -54,7 +54,7 @@ Each encrypted cell will be a combination of the ciphertext and initialization v
 
 Here, the ciphertext is `f5l2KcvRKodlSf6n06tqgQ==`, and the IV is `XSFHs2RWb/w2bo5VC2+ipg==`. You will need both of these with the encryption key to decrypt your data later.
 
-**decryptCsv(key_path: `str`, original_path: `str`, new_path: `str`, exclude_headers: `List[str]`, separator: `Union[str, bytes]` = `b'|'`)**
+**decryptCsv(key_path: `str`, source_path: `str`, decrypted_path: `str`, exclude_headers: `List[str]`, separator: `Union[str, bytes]` = `b'|'`)**
 
 Use this function to decrypt data in a CSV file, and save the decrypted file in the specified location.
 

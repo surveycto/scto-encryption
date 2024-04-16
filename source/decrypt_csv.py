@@ -1,10 +1,9 @@
 from scto_encryption.functions import decryptCsv
 
-from os.path import dirname, join
+from os.path import join
 
 def main():
-  repo_path = dirname(dirname(__file__))
-  data_path = join(repo_path, 'sample_data')
+  data_path = 'C:\\Users\\surveycto.user\\Documents\\Encrypt data\\'
   key_path = join(data_path, 'sample_key.pem')
   encrypted_path = join(data_path, 'encrypted_data.csv')
   decrypted_path = join(data_path, 'data_decrypted.csv')

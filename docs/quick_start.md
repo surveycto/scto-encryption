@@ -53,6 +53,7 @@ Once you have customized the file, you can run it using the terminal application
 * This example path is for MacOS and Linux. On Windows, use two backslashes `\\` instead of a single forward slash (Windows uses backslashes in folder paths, but backslashes are also used by Python, so the double-backslash means to use an actual backslash). Here is an example file path:<br>
 `C:\\Users\\surveycto.user\\Documents\\my_key.pem`<br>
 Consult your operating system's operating manual as required.
+* When specifying the path, for consistent results, use the absolute path (i.e. the path from the root of your system, e.g. `C:\\` on Windows), as opposed to the relative path (the path relative to the Python file).
 * Keep this file secure, since it will be used to both encrypt and decrypt your data. We recommend you don't back it up to the cloud. Safeguard this key; for example, consider storing it as a secure note in a password manager.
 
 ## Encrypting a CSV file

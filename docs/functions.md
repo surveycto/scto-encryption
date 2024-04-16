@@ -12,9 +12,9 @@ Generate a new, 128-bit encryption key, and save it at the path specified. This 
 
 Here is an example:
 
-    generateKey('/Users/surveycto.user/Documents/Keys/my_key.pem')
+    generateKey('C:\\Users\\surveycto.user\\Documents\\Keys\\my_key.pem')
 
-That will generate a new encryption key, and save it at the location `/Users/surveycto.user/Documents/Keys/my_key.pem`.
+That will generate a new encryption key, and save it at the location `C:\\Users\\surveycto.user\\Documents\\Keys\\my_key.pem`.
 
 This function will also return that key as a string, but you usually don't need to save it to a variable, since it will be saved at the specified path.
 

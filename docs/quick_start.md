@@ -22,7 +22,7 @@ To start Python, open a terminal (called "Command prompt" on Windows), and run t
 
 Followed by this command:
 
-    generateKey('/Users/surveycto.user/Documents/my_key.pem')
+    generateKey('C:\\Users\\surveycto.user\\Documents\\Keys\\my_key.pem')
 
 We will discuss these commands [later](#generating-an-encryption-key).
 
@@ -30,7 +30,7 @@ We will discuss these commands [later](#generating-an-encryption-key).
 
 To run a Python file, in your terminal, enter the `python` command, followed by a space, followed by the path to the Python file you would like to run in quotes. Here is an example:
 
-    python "/Users/surveycto.user/Documents/quick_key.py"
+    python "C:\\Users\\surveycto.user\\Documents\\Python scripts\\quick_key.py"
 
 All of the top-level files in [this folder](../source/) can be run this way once they are downloaded to your computer.
 
@@ -42,14 +42,14 @@ To generate your key, first customize the file path in the [`quick_key.py`](../s
 
 ```
 from scto_encryption.functions import generateKey
-generateKey('/Users/surveycto.user/Documents/my_key.pem')
+generateKey('C:\\Users\\surveycto.user\\Documents\\Keys\\my_key.pem')
 ```
 
 Once you have customized the file, you can run it using the terminal application on your computer. When it is complete, check the specified folder, and make sure the key has been created.
 
 **Important notes**:
 
-* Make sure the folder path already exists. In the above example, make sure the `/Users/surveycto.user/Documents/` folder already exists.
+* Make sure the folder path already exists. In the above example, make sure the `C:\\Users\\surveycto.user\\Documents\\Keys\\` folder already exists.
 * This example path is for MacOS and Linux. On Windows, use two backslashes `\\` instead of a single forward slash (Windows uses backslashes in folder paths, but backslashes are also used by Python, so the double-backslash means to use an actual backslash). Here is an example file path:<br>
 `C:\\Users\\surveycto.user\\Documents\\my_key.pem`<br>
 Consult your operating system's operating manual as required.

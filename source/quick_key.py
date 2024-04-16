@@ -1,2 +1,2 @@
 from scto_encryption.functions import generateKey
-generateKey('/Users/surveycto.user/Documents/my_key.pem')
+generateKey('C:\\Users\\surveycto.user\\Documents\\Keys\\my_key.pem')

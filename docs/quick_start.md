@@ -1,6 +1,6 @@
 # Quick start guide
 
-This quick start guide is aimed at helping basic users access the core functions of this package as quickly as possible. You'll be able to generate encryption keys, encrypt CSV data, and decrypt it by following these steps. Advanced users should skip this guide and stick to the main the documentation.
+This quick start guide is aimed at helping basic users access the core functions of thr scto-encryption package as quickly as possible. You'll be able to generate encryption keys, encrypt CSV data, and decrypt it by following these steps. Advanced users should skip this guide and stick to the main the documentation.
 
 ## Prerequisites
 
@@ -11,6 +11,8 @@ This quick start guide has some prerequisites and assumptions:
 3. You must install the scto-encryption package by running `pip install git+https://github.com/surveycto/scto-encryption.git`. You can confirm that it is installed by running `pip list | findstr scto-encryption` on Windows or `pip list | grep scto-encryption` on MacOS or Linux. It will list the package name, followed by the latest version number (`1.0.0`).
 
 **Important**: If in step 2, if `python3 --version` works but not  `python --version`, in all command in this document, use `python3` instead of `python`, and use `pip3` instead of `pip`.
+
+Optional: You can run the script in a [virtual environment](https://www.youtube.com/watch?v=Z9Vm9Uxk5pA), if you prefer.
 
 ## How to run a Python command
 
@@ -50,13 +52,13 @@ Once you have customized the file, you can run it using the terminal application
 **Important notes**:
 
 * Make sure the folder path already exists. In the above example, make sure the `C:\\Users\\surveycto.user\\Documents\\Keys\\` folder already exists.
-* This example path is for MacOS and Linux. On Windows, use two backslashes `\\` instead of a single forward slash (Windows uses backslashes in folder paths, but backslashes are also used by Python, so the double-backslash means to use an actual backslash). Here is an example file path in Windows:<br>
+* The example path above is for Windows. On MacOS and Linux, use a single forward slash `/` instead of a double-backslash `\\` (Windows uses backslashes in folder paths, but backslashes are also used by Python, so the double-backslash means to use an actual backslash). Here is an example file path in Windows:<br>
 `C:\\Users\\surveycto.user\\Documents\\my_key.pem`<br>
 And here is an example file path in MacOS:<br>
 `/Users/surveycto.user/Documents/my_key.pem`<br>
 Consult your operating system's operating manual as required.
 * When specifying the path, for consistent results, use the absolute path (i.e. the path from the root of your system, e.g. `C:\\` on Windows), as opposed to the relative path (the path relative to the Python file).
-* Keep this file secure, since it will be used to both encrypt and decrypt your data. We recommend you don't back it up to the cloud. Safeguard this key; for example, consider storing it as a secure note in a password manager.
+* Keep this file secure, since it will be used to both encrypt and decrypt your data. We recommend you don't back it up to the cloud (such as Dropbox, OneDrive, or Google Drive) unless it is in a highly secure environment, such as a secure note in a password manager.
 
 ## Encrypting a CSV file
 
@@ -66,10 +68,10 @@ This is demonstrated in the [encrypt_csv.py](../source/encrypt_csv.py) file. You
 
 * **key_path**: The file path to the encryption key that you generated (the file ending in ".pem").
 * **source_path**: The file path to the CSV file with data you would like encrypted.
-* **encrypted_path**: The file path to the new CSV file you would like to be created with the encrypted data. Make sure the folder path exists, you specify the new file name, and the file name ends in `.csv`.
+* **encrypted_path**: The file path to the new CSV file you would like to be created with the encrypted data. Make sure the folder path exists, you specify the new file name, and that the file name ends in `.csv`.
 * **exclude_headers**: The list of columns to not be encrypted. Include column header names in the list following "exclude_headers" inside the square brackets. Be sure to specify them in quotes, separated by commas (e.g. `['column_a', 'column_b', 'column_c']`)
 
-Once you run the script, use the file path location specified for **encrypted_path** to locate your encrypted CSV file. View the contents of the CSV file to confirm that you've encrypted all sensitive data; you may need to import the CSV file into Excel. Alternatively, [CSView](https://kothar.net/csview) is a free, cross-platform utility for opening and viewing CSV files. Do not use Google Sheets or any other cloud-based app just in case you missed some columns that should be encrypted, so your data remains safe and not saved to the cloud.
+Once you run the script, use the file path location specified for **encrypted_path** to locate your encrypted CSV file. View the contents of the CSV file to confirm that you've encrypted all sensitive data; you may need to import the CSV file into Excel. Alternatively, [CSView](https://kothar.net/csview) is a free, cross-platform utility for opening and viewing CSV files. Do not use Google Sheets or any other cloud-based app just in case you missed some columns that should be encrypted, so your data remains safe and not saved to the cloud (for example, if you want to save your decrypted data in an Excel file, ensure that your copy of Excel doesn’t automatically save files to OneDrive).
 
 Once you have confirmed that the CSV file is prepared correctly, you can upload it to a server dataset on your SurveyCTO server for use with the [`decrypt`](https://github.com/surveycto/decrypt/blob/main/README.md) field plug-in, which will be able to decrypt the data!
 

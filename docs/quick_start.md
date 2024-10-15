@@ -10,7 +10,7 @@ This quick start guide has some prerequisites and assumptions:
 2. Python must be installed on your computer. You can download a user-friendly installer from [the Python website](https://www.python.org/). Confirm that Python is installed by running `python3 --version` or `python --version` in the terminal. It should report the installed version number. Make sure you are using at least Python 3.8 (but a later version will also work well).
 3. You must install the scto-encryption package by running `pip install git+https://github.com/surveycto/scto-encryption.git`. You can confirm that it is installed by running `pip list | findstr scto-encryption` on Windows or `pip list | grep scto-encryption` on MacOS or Linux. It will list the package name, followed by the latest version number (`1.0.0`).
 
-**Important**: If `python3 --version` works but `python --version` does not, use `python3` and `pip3` in all commands instead of `python` and `pip`. Make sure you are running at least Python 3.8!
+**Important**: If `python3 --version` works but `python --version` does not, use `python3` and `pip3` in all commands instead of `python` and `pip`. Make sure the command you run uses at least Python 3.8!
 
 Optional: You can run the script in a [virtual environment](https://www.youtube.com/watch?v=Z9Vm9Uxk5pA), if you prefer.
 

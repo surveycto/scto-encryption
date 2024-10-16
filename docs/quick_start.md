@@ -38,7 +38,7 @@ All of the top-level files in [this folder](../source/) can be run this way once
 
 ## Generating an encryption key
 
-The `scto-encryption` package generates encryption keys similar to the SurveyCTO platform's which enable [form data encryption](https://docs.surveycto.com/02-designing-forms/02-additional-topics/06.encrypting.html) but with an important difference: only one key file is is used for both encryption and decryption. That key needs to be safeguarded.
+The `scto-encryption` package can generate encryption keys, similar to SurveyCTO's [form data encryption](https://docs.surveycto.com/02-designing-forms/02-additional-topics/06.encrypting.html) feature. However, unlike the form encryption feature, which requires a both public key file and a private key file, this package uses one key file for both encryption and decryption. That key needs to be safeguarded.
 
 To generate your key, first customize the file path in the [`quick_key.py`](../source/quick_key.py) template file. Specify the path where you would like the key to be created, including the file name. Your file named should end in ".pem". Here are the contents of `quick_key.py`:
 
@@ -68,12 +68,12 @@ This is demonstrated in the [encrypt_csv.py](../source/encrypt_csv.py) file. You
 
 * **key_path**: The file path to the encryption key that you generated (the file ending in ".pem").
 * **source_path**: The file path to the CSV file with data you would like encrypted.
-* **encrypted_path**: The file path to the new CSV file you would like to be created with the encrypted data. Make sure the folder path exists, you specify the new file name, and that the file name ends in `.csv`.
+* **encrypted_path**: The file path to the new CSV file you would like to be created with the encrypted data. Make sure the folder path exists, you specify the new file name, and the file name ends in `.csv`.
 * **exclude_headers**: The list of columns to not be encrypted. Include column header names in the list following "exclude_headers" inside the square brackets. Be sure to specify them in quotes, separated by commas (e.g. `['column_a', 'column_b', 'column_c']`)
 
 Once you run the script, use the file path location specified for **encrypted_path** to locate your encrypted CSV file. View the contents of the CSV file to confirm that you've encrypted all sensitive data; you may need to import the CSV file into Excel. Alternatively, [CSView](https://kothar.net/csview) is a free, cross-platform utility for opening and viewing CSV files. Do not use Google Sheets or any other cloud-based app just in case you missed some columns that should be encrypted, so your data remains safe and not saved to the cloud (for example, if you want to save your decrypted data in an Excel file, ensure that your copy of Excel doesn’t automatically save files to OneDrive).
 
-After confirming the CSV is correct, upload it to a server dataset on your SurveyCTO server for use with the [`decrypt`](https://github.com/surveycto/decrypt/blob/main/README.md) field plug-in, which will be able to decrypt the data!
+After confirming the CSV has been prepared, upload it to a server dataset on your SurveyCTO server for use with the [`decrypt`](https://github.com/surveycto/decrypt/blob/main/README.md) field plug-in, which will be able to decrypt the data!
 
 ## Decrypting a CSV file
 
